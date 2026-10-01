@@ -1,0 +1,89 @@
+competition:
+  name: "HackEval Classification Challenge"
+  timezone: "Asia/Kolkata"
+  problem_type: "single_label_classification"
+
+  submission:
+    max_attempts_per_team: 5
+    selection_policy: "best_valid_preliminary_score"
+    deadline_utc: "TODO"
+    reject_submissions_after_deadline: true
+    freeze_official_submission: true
+
+    # Do not expose scores calculated against private labels
+    # while participants can still submit replacement attempts.
+    reveal_preliminary_scores_before_deadline: false
+
+    require_excel_file: true
+    accepted_extensions:
+      - ".xlsx"
+
+    require_https_endpoint: true
+    require_deployment_version: true
+    require_endpoint_freeze_declaration: true
+
+  evaluation:
+    case_id_column: "case_id"
+    prediction_column: "prediction"
+    expected_prediction_type: "string"
+    label_set: "TODO"
+    expected_case_count: "TODO"
+
+    preliminary_dataset_version: "TODO"
+    finalist_test_set_version: "TODO"
+    scoring_policy_version: "classification-v1"
+
+    invalid_submission_policy: "ineligible"
+    missing_prediction_policy: "ineligible"
+    duplicate_case_id_policy: "ineligible"
+    unexpected_case_id_policy: "ineligible"
+
+    preliminary_metric: "accuracy"
+    final_predictive_metric: "accuracy"
+
+    finalist_count: 20
+    verification_uses_fresh_hidden_cases: true
+    equal_test_protocol_for_all_finalists: true
+
+  final_scoring:
+    qualitative_review_enabled: false
+
+    # Proposed weights preserve the original 70:15 ratio
+    # between predictive performance and reliability.
+    # Organizers must approve them before the competition opens.
+    verified_performance_weight: 0.823529
+    reliability_weight: 0.176471
+
+    score_range_min: 0
+    score_range_max: 100
+
+    performance_metric: "hidden_test_accuracy"
+    reliability_metric: "valid_response_rate"
+
+    tie_breakers:
+      - "verified_performance"
+      - "reliability_score"
+      - "TODO_organizer_approved_final_tiebreaker"
+
+  finalist_verification:
+    hosting_model: "participant_managed"
+    concurrency_limit: 5
+    connect_timeout_seconds: 5
+    read_timeout_seconds: 20
+    max_retries: 1
+    max_response_bytes: 1048576
+    max_batch_size: "TODO"
+    total_verification_deadline_seconds: "TODO"
+
+    retry_policy_version: "verification-v1"
+    endpoint_safety_policy_version: "ssrf-policy-v1"
+    deployment_version_must_match: true
+
+  qualitative_review:
+    enabled: false
+    llm_may_change_numeric_scores: false
+
+  publication:
+    preliminary_leaderboard_is_provisional: true
+    final_publication_requires_admin_approval: true
+    published_results_are_immutable: true
